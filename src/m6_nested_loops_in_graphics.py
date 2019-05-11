@@ -4,8 +4,8 @@ in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Nihaar Munnamgi   .
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -84,6 +84,43 @@ def draw_L(window, circle, r, c):
     # TODO: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # -------------------------------------------------------------------------
+    original_x = circle.center.x
+    original_y = circle.center.y
+    radius = circle.radius
+
+    x=original_x
+    y=original_y
+    for j in range(r+3):
+        for k in range(3):
+            new_circle = rg.Circle(rg.Point(x,y),radius)
+            new_circle.fill_color = circle.fill_color
+            new_circle.attach_to(window)
+            window.render(0.01)
+
+            x = x + (2*radius)
+        if j == r:
+            x_f=x
+            y_f=y
+        y = y + (2*radius)
+
+        x = original_x
+
+    x_1 = x_f
+    y_1 = y_f
+
+    x_2 = x_1
+    y_2 = y_1
+    for k in range(3):
+        for j in range(c):
+            new_circle = rg.Circle(rg.Point(x_2,y_2),radius)
+            new_circle.fill_color = circle.fill_color
+            new_circle.attach_to(window)
+            window.render(0.01)
+            x_2 = x_2 + 2*radius
+
+        y_2 = y_2 + 2*radius
+        x_2 = x_1
+
 
 
 def run_test_draw_wall_on_right():
@@ -125,7 +162,28 @@ def draw_wall_on_right(rectangle, n, window):
     # TODO: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # -------------------------------------------------------------------------
+    upper_left_corner = rectangle.get_upper_left_corner()
+    lower_right_corner = rectangle.get_lower_right_corner()
 
+    height = rectangle.get_height()
+    width = rectangle.get_width()
+
+    upper_left_corner_x = upper_left_corner.x
+    upper_left_corner_y = upper_left_corner.y
+    lower_right_corner_x = lower_right_corner.x
+    lower_right_corner_y = lower_right_corner.y
+    for k in range(n):
+        for j in range(k+1):
+            rectangle = rg.Rectangle(rg.Point(upper_left_corner_x,upper_left_corner_y),rg.Point(lower_right_corner_x,lower_right_corner_y))
+            rectangle.attach_to(window)
+            window.render(0.01)
+            upper_left_corner_x = upper_left_corner_x - width
+            lower_right_corner_x = lower_right_corner_x - width
+
+        upper_left_corner_y = upper_left_corner_y + height
+        upper_left_corner_x = upper_left_corner.x
+        lower_right_corner_y = lower_right_corner_y + height
+        lower_right_corner_x = lower_right_corner.x
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
